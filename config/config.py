@@ -10,3 +10,8 @@ class Config:
             config=config_origin
 
         return config
+
+    def getMinAllowedInputs(self):
+        inputsAllowed=('L','R','W')
+
+        return inputsAllowed
