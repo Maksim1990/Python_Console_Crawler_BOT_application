@@ -1,7 +1,7 @@
 class Console:
 
-    def __init__(self):
-        self.data = ('L','R','W')
+    def __init__(self, data):
+        self.data = data
 
     def askInput(self):
       parameters=input("Type your direction string ")
