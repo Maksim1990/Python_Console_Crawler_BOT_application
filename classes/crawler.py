@@ -48,13 +48,13 @@ class Crawler:
     # Calculate correct new direction
     def calculateNewDirection(self,value):
           if self.direction=='N':
-           newDirection="W" if (self.direction=='N' and value=="L") else "E"
+           newDirection="W" if (value=="L") else "E"
           elif self.direction=='E':
-           newDirection="N" if (self.direction=='E' and value=="L") else "S"
+           newDirection="N" if (value=="L") else "S"
           elif self.direction=='S':
-           newDirection="E" if (self.direction=='S' and value=="L") else "W"
+           newDirection="E" if (value=="L") else "W"
           elif self.direction=='W':
-           newDirection="S" if (self.direction=='W' and value=="L") else "N"
+           newDirection="S" if (value=="L") else "N"
           return newDirection
 
     # Return result of position calculation
