@@ -12,6 +12,6 @@ class Config:
         return config
 
     def getMinAllowedInputs(self):
-        inputsAllowed=('L','R','W')
+        inputsAllowed=('L','R','W','B')
 
         return inputsAllowed

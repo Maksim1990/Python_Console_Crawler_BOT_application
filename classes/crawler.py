@@ -5,7 +5,7 @@ class Crawler:
         self.__x_position=config['x_position']
         self.__y_position=config['y_position']
         self.__direction=config['direction']
-        self.directionAllowed=('L','R')
+        self.directionAllowed=('L','R','B')
         self.directionNames={
                 'N':'North',
                 'E':'East',
@@ -34,8 +34,11 @@ class Crawler:
         self.__direction = direction
 
     # Change current direction
-    def changeDirection(self,value):
-        direction=self.calculateNewDirection(value)
+    def changeDirection(self,value, num):
+
+
+        for i in num:
+         direction=self.calculateNewDirection(value)
         self.set_direction(direction)
 
     # Change x/y location based on value after W character
@@ -71,26 +74,40 @@ class Crawler:
         # Set initial number of point to go
         pointValue=[]
         pointSum=[0,]
+        valueB=[]
+        pointSumB=[0,]
         # Set default parameter to check whether
         # W command where called before points value
         metGoCommand=False
+
+
         for index,char in enumerate(string):
 
             if char in self.directionAllowed:
+
                 if metGoCommand:
                   if pointValue and metGoCommand:
                     pointsToGo=int("".join(pointValue))+sum(pointSum)
+                    pointGoBack=int("".join(valueB))+sum(pointSumB)
+                    if pointGoBack>0:
+                        pointsToGo -=pointGoBack
+
+                    pointsToGo=self.recalatePoint()
                     self.changeCurrentPosition(pointsToGo)
                     pointSum=[]
                   elif len(pointSum)>0:
-                    self.changeCurrentPosition(sum(pointSum))
+
+                    pointsToGo=sum(pointSum)
+
+                    self.changeCurrentPosition(pointsToGo)
                     pointSum=[]
 
                   metGoCommand=False
 
                 pointValue=[]
-                self.changeDirection(char)
+                self.changeDirection(char,num)
                 #print('Direction '+self.direction)
+
 
             elif char =='W':
                 metGoCommand=True
@@ -98,11 +115,14 @@ class Crawler:
                 if pointsToGo:
                  pointSum.append(int(pointsToGo))
                  pointValue=[]
+            elif char =='B':
+                pass
             else:
                 if metGoCommand:
                   pointValue.append(char)
                   if index== len(string)-1:
                     pointsToGo=int("".join(pointValue))+sum(pointSum)
+
                     self.changeCurrentPosition(pointsToGo)
 
         return self.returnResult()
